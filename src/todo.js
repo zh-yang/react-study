@@ -59,6 +59,7 @@ console.log('初始状态', store.getState())
 const unsubscribe = store.subscribe(()=>console.log(store.getState()))
 
 //发起一系列action
+/*
 console.log('add0')
 store.dispatch(addTodo('Learn about actions'))
 console.log('add1')
@@ -73,3 +74,59 @@ console.log('SHOW_COMPLETED')
 store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED))
 console.log('注销')
 unsubscribe();
+*/
+
+function Todo(onClick, completed, text) {
+	return (
+		<li onClick={onClick}
+			style={{
+				textDecoration: completed ? 'line-through' : 'none'
+			}}
+		>
+			{text}
+		</li>
+	)
+}
+
+const TodoList = ({ todos, onTodoClick }) => (
+	<ul>
+		{
+			todos.map((todo, index) => (
+				<Todo key={index}
+					{...todos}
+					onClick={()=>onTodoClick(index)}
+				/>
+			))
+		}
+	</ul>
+)
+
+function Link(active, children, onClick) {
+	if (active) {
+		return <span>{children}</span>
+	}
+
+	return (
+		<a href=""
+			onClick={e => {
+				e.preventDefault()
+				onClick()
+			}}
+		>{children}</a>
+	)
+}
+
+function Footer() {
+	<p>
+		Show：
+		<FilterLink filter="SHOW_ALL">
+			All
+		</FilterLink>
+		<FilterLink filter="SHOW_ACTIVE">
+			Active
+		</FilterLink>
+		<FilterLink filter="SHOW_COMPLETED">
+			Completed
+		</FilterLink>
+	</p>
+}

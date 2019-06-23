@@ -66,17 +66,92 @@ var unsubscribe = store.subscribe(function () {
 });
 
 //发起一系列action
-console.log('add0');
-store.dispatch(addTodo('Learn about actions'));
-console.log('add1');
-store.dispatch(addTodo('Learn about reducers'));
-console.log('add2');
-store.dispatch(addTodo('Learn about store'));
-console.log('toggle0');
-store.dispatch(toggleTodo(0));
-console.log('toggle1');
-store.dispatch(toggleTodo(1));
-console.log('SHOW_COMPLETED');
-store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED));
-console.log('注销');
+/*
+console.log('add0')
+store.dispatch(addTodo('Learn about actions'))
+console.log('add1')
+store.dispatch(addTodo('Learn about reducers'))
+console.log('add2')
+store.dispatch(addTodo('Learn about store'))
+console.log('toggle0')
+store.dispatch(toggleTodo(0))
+console.log('toggle1')
+store.dispatch(toggleTodo(1))
+console.log('SHOW_COMPLETED')
+store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED))
+console.log('注销')
 unsubscribe();
+*/
+
+function Todo(onClick, completed, text) {
+	return React.createElement(
+		'li',
+		{ onClick: onClick,
+			style: {
+				textDecoration: completed ? 'line-through' : 'none'
+			}
+		},
+		text
+	);
+}
+
+var TodoList = function TodoList(_ref) {
+	var todos = _ref.todos,
+	    onTodoClick = _ref.onTodoClick;
+	return React.createElement(
+		'ul',
+		null,
+		todos.map(function (todo, index) {
+			return React.createElement(Todo, Object.assign({ key: index
+			}, todos, {
+				onClick: function onClick() {
+					return onTodoClick(index);
+				}
+			}));
+		})
+	);
+};
+
+function Link(active, children, _onClick) {
+	if (active) {
+		return React.createElement(
+			'span',
+			null,
+			children
+		);
+	}
+
+	return React.createElement(
+		'a',
+		{ href: '',
+			onClick: function onClick(e) {
+				e.preventDefault();
+				_onClick();
+			}
+		},
+		children
+	);
+}
+
+function Footer() {
+	React.createElement(
+		'p',
+		null,
+		'Show\uFF1A',
+		React.createElement(
+			FilterLink,
+			{ filter: 'SHOW_ALL' },
+			'All'
+		),
+		React.createElement(
+			FilterLink,
+			{ filter: 'SHOW_ACTIVE' },
+			'Active'
+		),
+		React.createElement(
+			FilterLink,
+			{ filter: 'SHOW_COMPLETED' },
+			'Completed'
+		)
+	);
+}
