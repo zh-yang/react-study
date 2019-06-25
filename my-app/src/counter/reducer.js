@@ -20,3 +20,14 @@ function counter(state = 0, action) {
 //API 是 { subscribe, dispatch, getState }
 let store = createStore(counter);
 
+// 可以手动订阅更新，也可以事件绑定到视图层。
+store.subscribe(() =>
+  console.log(store.getState())
+);
+
+export default store;
+
+// 改变内部 state 惟一方法是 dispatch 一个 action。
+// store.dispatch({ type: 'INCREMENT' });
+// store.dispatch({ type: 'INCREMENT' });
+// store.dispatch({ type: 'DECREMENT' });
