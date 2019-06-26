@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './todoList';
 import * as serviceWorker from './serviceWorker';
 
 import store from './counter/reducer'
