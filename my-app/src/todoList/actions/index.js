@@ -8,6 +8,15 @@ export const addTodo = text => {
     }
 }
 
+export const addTodoAsync = text => {
+    return {
+        type: 'ADD_TODO_ASYNC',
+        id: nextTodoId++,
+        text
+    }
+    
+}
+
 export const setVisibilityFilter = filter => {
     return {
         type: 'SET_VISIBILITY_FILTER',
